@@ -1,0 +1,29 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: "Serverless OAuth proxy for Decap CMS GitHub integration"
+Resources:
+  OAuthFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handler
+      Runtime: nodejs20.x
+      CodeUri: ./oauth-proxy/
+      Environment:
+        Variables:
+          CLIENT_ID: "Ov23li3INZsiUsuF1n7q"
+          CLIENT_SECRET: "d1c3c0ccd4afc81b3c9eb4491d29e30a0ae9b387"
+      Events:
+        AuthRoute:
+          Type: HttpApi
+          Properties:
+            Path: /auth
+            Method: GET
+        CallbackRoute:
+          Type: HttpApi
+          Properties:
+            Path: /callback
+            Method: GET
+Outputs:
+  ApiEndpoint:
+    Description: "API Gateway Endpoint URL"
+    Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com"
