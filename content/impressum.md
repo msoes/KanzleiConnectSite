@@ -2,12 +2,13 @@
 title: "Impressum"
 ---
 
-### Angaben gemäß § 5 TMG
+### Angaben gemäß Art. 3 Abs. 1 lit. s UWG
 
 **Kanzlei Connect**  
 [Dein Name / Vereinsname]  
 [Deine Straße und Hausnummer]  
 [Deine PLZ und Ort]  
+Schweiz
 
 ### Kontakt
 
