@@ -1,0 +1,13 @@
+<p>&copy; {{ now.Year }} {{ site.Title }}. Alle Rechte vorbehalten.</p>
+<!-- Decap CMS Auth Script -->
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
+</script>

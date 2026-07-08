@@ -1,0 +1,18 @@
+{{ define "main" }}
+<div class="animate-up">
+  <h1 style="text-align: center; margin: 2rem 0 4rem 0;">{{ .Title }}</h1>
+  <div class="grid">
+    {{ range .Pages }}
+    <article class="card glass">
+      {{ if .Params.thumbnail }}
+      <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="card-image">
+      {{ end }}
+      <div class="card-content">
+        <h3 class="card-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+        <p class="card-excerpt">{{ .Summary }}</p>
+      </div>
+    </article>
+    {{ end }}
+  </div>
+</div>
+{{ end }}

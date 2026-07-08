@@ -1,0 +1,12 @@
+{{ define "main" }}
+<div class="glass" style="max-width: 800px; margin: 2rem auto; padding: 2rem; border-radius: 16px;">
+  {{ if .Params.thumbnail }}
+  <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" style="width: 100%; border-radius: 8px; margin-bottom: 2rem;">
+  {{ end }}
+  <h1 style="margin-top: 0;">{{ .Title }}</h1>
+  <div class="card-date">{{ .Date.Format "January 2, 2006" }}</div>
+  <div class="content" style="margin-top: 2rem;">
+    {{ .Content }}
+  </div>
+</div>
+{{ end }}

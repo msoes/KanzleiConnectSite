@@ -1,0 +1,4 @@
+baseURL = 'https://kanzlei-connect.de/'
+languageCode = 'de'
+title = 'Kanzlei Connect'
+theme = 'club-theme'

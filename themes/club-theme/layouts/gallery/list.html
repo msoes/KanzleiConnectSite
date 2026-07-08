@@ -1,0 +1,19 @@
+{{ define "main" }}
+<div class="animate-up">
+  <h1 style="text-align: center; margin: 2rem 0 4rem 0;">{{ .Title }}</h1>
+  <div class="grid" style="grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));">
+    {{ range .Pages }}
+    <a href="{{ .RelPermalink }}" class="card glass" style="text-decoration: none;">
+      {{ if .Params.photos }}
+      <img src="{{ index .Params.photos 0 }}" alt="{{ .Title }}" class="card-image" style="height: 250px; object-fit: cover;">
+      {{ else if .Params.image }}
+      <img src="{{ .Params.image }}" alt="{{ .Title }}" class="card-image" style="height: 250px; object-fit: cover;">
+      {{ end }}
+      <div class="card-content" style="padding: 1rem; text-align: center;">
+        <h3 class="card-title" style="margin: 0; font-size: 1.25rem;">{{ .Title }}</h3>
+      </div>
+    </a>
+    {{ end }}
+  </div>
+</div>
+{{ end }}
