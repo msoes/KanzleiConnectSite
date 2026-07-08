@@ -11,6 +11,6 @@ Wir freuen uns riesig, ankündigen zu können, dass unser nächstes großes **Ka
 Es wird ein großartiger Nachmittag voller toller Gespräche, Musik und leckerem Essen. Wir möchten alle Anwohner in unserer Nachbarschaft
 rund um den Seebahngraben, Freunde und Familien  einladen, gemeinsam mit uns zu feiern und auf unsere Nachbarschaft anzustoßen.
 
-Weitere Details zum Veranstaltungsort und zum genauen Programm folgen in Kürze hier auf dem Blog. Sichert euch den Termin!
+Weitere Details zum Veranstaltungsort und zum genauen Programm folgen in Kürze hier unter Kanzlei-Leben. Sichert euch den Termin!
 
 Wir freuen uns auf euch!

@@ -5,14 +5,14 @@
     Als ungezwungener Verein möchten wir die Menschen in unserer Nachbarschaft einander näherbringen – vor allem mit unserem jährlichen Nachbarschaftsfest.
   </p>
   <br>
-  <a href="/blog/" class="btn">Zum Blog</a>
+  <a href="/kanzlei-leben/" class="btn">Zu Kanzlei-Leben</a>
   <a href="/gallery/" class="btn" style="background: transparent; border: 2px solid var(--accent); margin-left: 1rem;">Zur Galerie</a>
 </section>
 
 <section class="animate-up" style="animation-delay: 0.2s;">
   <h2 style="text-align: center; margin-bottom: 2rem;">Aktuelle Neuigkeiten</h2>
   <div class="grid">
-    {{ range first 3 (where site.RegularPages "Section" "blog") }}
+    {{ range first 3 (where site.RegularPages "Section" "kanzlei-leben") }}
     <article class="card glass">
       {{ if .Params.thumbnail }}
       <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" class="card-image">
