@@ -4,9 +4,9 @@ title: "Impressum"
 
 ### Angaben gemäß Art. 3 Abs. 1 lit. s UWG
 
-**Kanzlei Connect**
+**KanzleiConnect**
 
-Verein Kanzlei Connect\
+Verein KanzleiConnect\
 Kanzleistrasse 135\
 8004 Zurich\
 Schweiz

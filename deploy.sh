@@ -3,7 +3,7 @@
 # Abort on error
 set -e
 
-echo "🚀 Starte Deployment für Kanzlei Connect..."
+echo "🚀 Starte Deployment für KanzleiConnect..."
 
 echo "🧹 Lösche alten Cache..."
 rm -rf public/
