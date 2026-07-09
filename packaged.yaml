@@ -6,9 +6,8 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: index.handler
-      Runtime: nodejs20.x
-      CodeUri: 
-        s3://kanzlei-connect-site/aws-sam/3cf4286e412b3023fb656da703016b4d
+      Runtime: nodejs22.x
+      CodeUri: s3://kanzlei-connect-site/3cf4286e412b3023fb656da703016b4d
       Environment:
         Variables:
           CLIENT_ID: Ov23li3INZsiUsuF1n7q
