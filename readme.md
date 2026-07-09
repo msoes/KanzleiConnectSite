@@ -48,6 +48,27 @@ Decap CMS is configured with two distinct collections:
 1. **Blog**: Allows members to publish text-heavy news updates with a featured thumbnail.
 2. **Gallery**: Tailored for visual uploads with simple captions.
 
+## 🏗️ AWS Infrastructure
+
+Our complete architecture relies entirely on 100% serverless, highly-scalable, and virtually free AWS resources:
+
+1. **Amazon S3 (Simple Storage Service)**
+   - **Bucket:** `kanzlei-connect-site`
+   - **Region:** `eu-central-1` (Frankfurt)
+   - **Purpose:** Hosts all our compiled static HTML, CSS, JavaScript, and image files. Configured for Static Website Hosting.
+
+2. **AWS Lambda & API Gateway (OAuth Proxy)**
+   - **Stack:** `KanzleiConnectOAuth`
+   - **Region:** `eu-central-1` (Frankfurt)
+   - **Purpose:** Provides a tiny, serverless authentication bridge (OAuth) so our club members can log into the Decap CMS dashboard securely using their GitHub accounts, without us needing to pay for a 24/7 backend server.
+
+3. **AWS Certificate Manager (ACM)**
+   - **Region:** `us-east-1` (North Virginia)
+   - **Purpose:** Automatically provisions, stores, and manages our free, auto-renewing SSL/TLS certificate for the custom domain (`kanzlei-connect.ch`). It must be in North Virginia to be compatible with CloudFront.
+
+4. **Amazon CloudFront (Pending Setup)**
+   - **Purpose:** A global Content Delivery Network (CDN) that will sit in front of our S3 bucket. It caches our website at edge locations worldwide for lightning-fast loading speeds and applies our SSL certificate to ensure a secure HTTPS connection.
+
 ## 🚀 Running Locally
 
 To run the site on your own machine:
