@@ -12,6 +12,7 @@ This repository contains the source code for our Social Club's website, built wi
 2. **The Club Dashboard (CMS)**
    - Integrate **Decap CMS** (formerly Netlify CMS) to allow non-technical club members to easily log in.
    - Provide an intuitive dashboard to write blog posts, add news, and upload images into the gallery without touching code.
+   - 📖 **[Read the Editor Guide (German) for non-technical members here](./EDITOR_GUIDE.md)**
 
 3. **Premium "Look & Feel"**
    - Create a rich, premium aesthetic that wows visitors at first glance.
@@ -66,8 +67,8 @@ Our complete architecture relies entirely on 100% serverless, highly-scalable, a
    - **Region:** `us-east-1` (North Virginia)
    - **Purpose:** Automatically provisions, stores, and manages our free, auto-renewing SSL/TLS certificate for the custom domain (`kanzlei-connect.ch`). It must be in North Virginia to be compatible with CloudFront.
 
-4. **Amazon CloudFront (Pending Setup)**
-   - **Purpose:** A global Content Delivery Network (CDN) that will sit in front of our S3 bucket. It caches our website at edge locations worldwide for lightning-fast loading speeds and applies our SSL certificate to ensure a secure HTTPS connection.
+4. **Amazon CloudFront**
+   - **Purpose:** A global Content Delivery Network (CDN) sitting in front of our S3 bucket. It caches our website at edge locations worldwide for lightning-fast loading speeds and applies our SSL certificate to ensure a secure HTTPS connection.
 
 ## 🚀 Running Locally
 
