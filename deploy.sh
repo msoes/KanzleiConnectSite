@@ -13,7 +13,10 @@ hugo -D
 
 echo "☁️ Synchronisiere mit AWS S3 Bucket..."
 # --delete sorgt dafür, dass lokal gelöschte Dateien auch auf AWS gelöscht werden
-aws s3 sync public/ s3://kanzlei-connect-site/ --delete
+aws s3 sync public/ s3://kanzlei-connect-site --delete
+
+echo "🧹 Lösche CloudFront Cache..."
+aws cloudfront create-invalidation --distribution-id E24SG20XD5MVOE --paths "/*"
 
 echo "✅ Deployment erfolgreich abgeschlossen!"
-echo "Die Webseite ist erreichbar unter: http://kanzlei-connect-site.s3-website.eu-central-1.amazonaws.com/"
+echo "Die Webseite ist erreichbar unter: https://kanzlei-connect.ch/"
