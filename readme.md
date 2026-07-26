@@ -1,97 +1,67 @@
-# Social Club Connect Website
+# KanzleiConnect – Architecture & Documentation
 
-This repository contains the source code for our Social Club's website, built with modern static site generator technologies to ensure it remains 100% free, blisteringly fast, and completely secure.
+This repository contains the complete source code and infrastructure configuration for **KanzleiConnect**, a fully serverless, highly-scalable, and free-to-host static website built with Hugo and AWS.
 
-## 🎯 Goals
+## 🏗️ AWS Infrastructure & System Architecture
 
-1. **The Serverless / Static Route (100% Free)**
-   - Utilize a Static Site Generator (SSG) rather than a continuously running virtual machine.
-   - Keep the site lightweight and fully compatible with the AWS Free Tier (AWS Amplify or S3/CloudFront) or Netlify.
-   - Eliminate server overhead, hacking vulnerabilities, and monthly flat fees.
+The entire system is designed to run without traditional web servers, utilizing AWS's global infrastructure for maximum speed, security, and cost-efficiency.
 
-2. **The Club Dashboard (CMS)**
-   - Integrate **Decap CMS** (formerly Netlify CMS) to allow non-technical club members to easily log in.
-   - Provide an intuitive dashboard to write blog posts, add news, and upload images into the gallery without touching code.
-   - 📖 **[Read the Editor Guide (German) for non-technical members here](./EDITOR_GUIDE.md)**
+| AWS Service | Role in the System | Region |
+|-------------|--------------------|--------|
+| **Amazon S3** | **Storage & Hosting:** The `kanzlei-connect-site` bucket stores all compiled static files (HTML/CSS/JS/Images) and acts as the origin web server. | `eu-central-1` |
+| **AWS CloudFront** | **CDN & Security:** A global Content Delivery Network sitting in front of the S3 bucket. It caches the site globally for lightning-fast speeds and applies the SSL certificate. | Global |
+| **AWS ACM** | **SSL Certificate:** Automatically provisions and manages the free HTTPS certificate for `kanzlei-connect.ch`. | `us-east-1` |
+| **AWS Lambda** | **OAuth Proxy:** A tiny serverless function (Node.js 22) that bridges GitHub's OAuth system, allowing users to log into the CMS without a dedicated backend server. | `eu-central-1` |
+| **API Gateway** | **OAuth Routing:** Exposes the Lambda function to the web so the CMS can communicate with it securely during login. | `eu-central-1` |
 
-3. **Premium "Look & Feel"**
-   - Create a rich, premium aesthetic that wows visitors at first glance.
-   - Move away from generic themes to a highly customized, visually engaging interface.
+---
 
-## 🎨 Current Design
+## ✍️ Content Management (Editing, Updating, Deleting Content)
 
-The visual identity of the club website is built on a custom Hugo theme (`club-theme`) designed with the following aesthetic principles:
+We use **Decap CMS** to provide a user-friendly, graphical interface for club members to manage the website's content without needing to understand code or Git.
 
-- **Glassmorphism Interface**: Navigation bars and content cards utilize translucent, frosted-glass effects (`backdrop-filter`) that float cleanly over the background.
-- **Sunny Courtyard Theme**: The base design is a bright, daytime aesthetic (`#FDFBF7`), accented with sky blue (`#00AEEF`) and warm golden yellow (`#FFC107`) to match the official event flyers.
-- **Modern Typography**: Utilizes Google's **Outfit** and **Inter** fonts to deliver a sleek, highly legible, and premium appearance.
-- **Micro-animations**: Elements like the hero section and article cards feature smooth slide-up animations on load and engaging hover physics (shadow expansion, translation) to encourage user interaction.
+### For Club Members & Non-Technical Users
+All daily content updates are done directly through the browser.
+- 📖 **[Read the Step-by-Step Editor Guide (in German)](./EDITOR_GUIDE.md)**
 
-## 🛠️ Implementation Details
+**Brief Overview:**
+1. **Log in:** Go to `https://kanzlei-connect.ch/admin/` and authenticate via your GitHub account.
+2. **Edit/Update:** Click on an existing post in "Kanzlei-Leben" or "Galerie" to edit text or images, then click "Publish".
+3. **Create:** Click "New" in the respective collection to draft and publish new content.
+4. **Delete:** Open a post in the CMS and click "Delete entry" to permanently remove it from the site.
 
-### Tech Stack
-- **Hugo**: The world’s fastest framework for building websites. It compiles our content into static HTML in milliseconds.
-- **Decap CMS**: Configured natively via `static/admin/index.html` and `static/admin/config.yml`.
+Every change made in the CMS automatically commits a markdown file update to this GitHub repository.
+
+---
+
+## 💻 Site Management (Editing, Updating, Deleting the Site Structure)
+
+For developers wanting to change the layout, styling, or functionality of the website itself, the site is built using **Hugo** (a fast Static Site Generator).
 
 ### Project Structure
-- `hugo.toml`: The main configuration file for the Hugo site.
-- `themes/club-theme/`: Our custom-built theme containing all HTML layouts and CSS.
+- `hugo.toml`: The global configuration file (site title, language, etc.).
+- `themes/club-theme/`: Contains all HTML templates and CSS styling.
   - `layouts/index.html`: The hero homepage showcasing latest news.
-  - `layouts/partials/`: Reusable components (Header, Footer, Head).
-  - `layouts/blog/` & `layouts/gallery/`: Custom list and single-item views for our two primary content types.
-  - `static/css/style.css`: The global stylesheet handling CSS variables, glassmorphism, and animations.
-- `content/blog/`: Markdown files for news and updates.
-- `content/gallery/`: Markdown files for visual event memories.
-- `static/images/uploads/`: The target folder where Decap CMS deposits user-uploaded images.
+  - `layouts/kanzlei-leben/` & `layouts/gallery/`: Views for our specific content types.
+  - `static/css/style.css`: The main stylesheet featuring our custom glassmorphism design.
+- `content/`: The actual markdown files backing the CMS.
+- `oauth-proxy/` & `template.yaml`: The AWS SAM infrastructure code for the login proxy.
 
-### Content Collections
-Decap CMS is configured with two distinct collections:
-1. **Blog**: Allows members to publish text-heavy news updates with a featured thumbnail.
-2. **Gallery**: Tailored for visual uploads with simple captions.
+### Running Locally
+To modify the site's code and preview it:
+1. Install [Hugo](https://gohugo.io/installation/).
+2. Run `hugo server -D` in the terminal.
+3. Open `http://localhost:1313/` to see live changes in your browser.
 
-## 🏗️ AWS Infrastructure
+### Deploying Site Updates
+We use an automated bash script to compile the site and push it to AWS. After modifying code locally:
+1. Ensure your AWS CLI is authenticated.
+2. Run `./deploy.sh` in the terminal.
+This script will build the static HTML, sync it to the S3 bucket, and instantly clear the CloudFront cache so changes appear immediately.
 
-Our complete architecture relies entirely on 100% serverless, highly-scalable, and virtually free AWS resources:
-
-1. **Amazon S3 (Simple Storage Service)**
-   - **Bucket:** `kanzlei-connect-site`
-   - **Region:** `eu-central-1` (Frankfurt)
-   - **Purpose:** Hosts all our compiled static HTML, CSS, JavaScript, and image files. Configured for Static Website Hosting.
-
-2. **AWS Lambda & API Gateway (OAuth Proxy)**
-   - **Stack:** `KanzleiConnectOAuth`
-   - **Region:** `eu-central-1` (Frankfurt)
-   - **Purpose:** Provides a tiny, serverless authentication bridge (OAuth) so our club members can log into the Decap CMS dashboard securely using their GitHub accounts, without us needing to pay for a 24/7 backend server.
-
-3. **AWS Certificate Manager (ACM)**
-   - **Region:** `us-east-1` (North Virginia)
-   - **Purpose:** Automatically provisions, stores, and manages our free, auto-renewing SSL/TLS certificate for the custom domain (`kanzlei-connect.ch`). It must be in North Virginia to be compatible with CloudFront.
-
-4. **Amazon CloudFront**
-   - **Purpose:** A global Content Delivery Network (CDN) sitting in front of our S3 bucket. It caches our website at edge locations worldwide for lightning-fast loading speeds and applies our SSL certificate to ensure a secure HTTPS connection.
-
-## 🚀 Running Locally
-
-To run the site on your own machine:
-
-1. Ensure [Hugo](https://gohugo.io/installation/) is installed on your machine.
-2. Run the local development server (with drafts enabled):
-   ```bash
-   hugo server -D
-   ```
-3. Visit `http://localhost:1313/` to view the site.
-4. Visit `http://localhost:1313/admin/` to access the Decap CMS dashboard.
-
-## ☁️ Deployment (AWS)
-
-We use an automated bash script to compile the website and sync it directly to an AWS S3 Bucket configured for static website hosting.
-
-To deploy new changes to the live site:
-
-1. Ensure your AWS CLI is configured with the correct access keys (`aws configure`).
-2. Run the deployment script from the project root:
-   ```bash
-   ./deploy.sh
-   ```
-
-The script will automatically clear the old cache, rebuild the static HTML with Hugo, and safely synchronize the `public/` directory with the `kanzlei-connect-site` S3 bucket.
+### Deleting the Entire Site
+If you ever need to completely take down the website:
+1. Delete the AWS CloudFormation stack `KanzleiConnectOAuth` via the AWS Console.
+2. Disable and delete the CloudFront Distribution.
+3. Empty and delete the S3 Bucket `kanzlei-connect-site`.
+4. Delete the DNS CNAME records at your domain registrar (Hostpoint).
