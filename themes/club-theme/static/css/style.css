@@ -65,23 +65,12 @@ nav {
   border-radius: 999px; /* Pill shape */
 }
 
-.logo-brand {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
+.logo {
   font-size: 1.5rem;
   font-weight: 700;
   background: linear-gradient(to right, var(--primary), var(--accent));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-}
-
-.logo-icon {
-  height: 42px;
-  width: 42px;
-  object-fit: cover;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .nav-links {
