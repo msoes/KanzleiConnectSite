@@ -117,20 +117,20 @@ main {
 }
 
 .hero-logo-wrapper {
-  margin-bottom: 1.5rem;
+  margin: 1rem 0 1.5rem 0;
 }
 
 .hero-logo {
-  max-width: 280px;
+  max-width: 140px;
   height: auto;
-  border-radius: 16px;
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.08);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .hero-logo:hover {
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.1);
 }
 
 .hero h1 {
